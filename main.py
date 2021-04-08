@@ -1,6 +1,6 @@
 import pygame
 from menu import *
-
+from player import *
 pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.mixer.init()
 pygame.init()
@@ -35,6 +35,9 @@ class Game:
         self.story = StoryMenu(self)
         self.curr_menu = self.main_menu
 
+        self.player_left = PlayerLeft(10, 10)
+        self.player_right = PlayerRight(self.window_width - 42, 10)
+
     def run(self):
         self.running = True
         while self.running:
@@ -62,6 +65,15 @@ class Game:
                     self.RightKey = True
                 if e.key == pygame.K_SPACE:
                     self.JumpKey = True
+            if e.type == pygame.KEYUP:
+                if e.key == pygame.K_w or e.key == pygame.K_w \
+                        or e.key == pygame.K_s or e.key == pygame.K_DOWN \
+                        or e.key == pygame.K_a or e.key == pygame.K_LEFT:
+                    self.WrongKey = False
+                if e.key == pygame.K_d or e.key == pygame.K_RIGHT:
+                    self.RightKey = False
+                if e.key == pygame.K_SPACE:
+                    self.JumpKey = False
 
     def reset_keys(self):
         self.JumpKey = False
@@ -77,12 +89,16 @@ class Game:
 
     def loop(self):
         while self.playing:
+            self.clock.tick(self.fps)
+            self.delta = self.clock.get_time() / 1000
             self.events()
             self.screen.fill(self.Back_color)
-            self.draw_text('Hello, Player!', 120, self.window_width/2, self.window_height/2)
+            #self.draw_text('Hello, Player!', 120, self.window_width/2, self.window_height/2)
+            self.player_left.update(self.RightKey, self.JumpKey, self.delta)
+            self.player_left.draw(self.screen)
+            self.player_right.update(self.RightKey, self.JumpKey, self.delta)
+            self.player_right.draw(self.screen)
             pygame.display.flip()
-            self.clock.tick(self.fps)
-            self.reset_keys()
 
 
 game = Game()
