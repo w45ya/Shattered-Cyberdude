@@ -103,9 +103,11 @@ class Game:
                 if isinstance(e, PlayerRight):
                     self.player_right = e
         else:
+            pygame.time.wait(1000)
             self.screen.fill(self.Back_color)
             self.draw_text('You win', 120, self.window_width / 2, self.window_height / 2)
             pygame.display.flip()
+            pygame.time.wait(1000)
             self.playing = False
 
     def loop(self):
@@ -134,6 +136,9 @@ class Game:
             self.camera.update(self.player_left)
             for e in self.entities:
                 self.screen.blit(e.image, self.camera.apply(e))
+            for e in self.entities:
+                if isinstance(e, PlayerLeft) or isinstance(e, PlayerRight):
+                    self.screen.blit(e.image, self.camera.apply(e))
             pygame.display.flip()
 
 

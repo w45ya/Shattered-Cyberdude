@@ -12,22 +12,20 @@ class Levels:
                        "                                        ",
                        "                                        ",
                        "                                        ",
-                       "         -   -                          ",
                        "                                        ",
                        "                                        ",
-                       "                                        ",
-                       "                                        ",
-                       "                                        ",
+                       "              4                         ",
                        "        ---------                       ",
                        "                                        ",
                        "                                        ",
                        "                                        ",
-                       "                                        ",
+                       "              2 B-                      ",
+                       "        ----------                      ",
                        "                                        ",
                        "                                        ",
                        "                            X           ",
                        "                            X           ",
-                       "                            X           ",
+                       "        1              3    X     D     ",
                        "----------------------------------------"]
         self.level2 = ["----------------------------------------",
                        "                                        ",
@@ -70,6 +68,42 @@ class Levels:
                     entities.add(block)
                 if col == "X":
                     block = DeathBlock(x, y)
+                    entities.add(block)
+                if col == "1":
+                    block = TeleportIn(x, y, 1)
+                    entities.add(block)
+                if col == "2":
+                    block = TeleportOut(x, y, 1)
+                    entities.add(block)
+                if col == "3":
+                    block = TeleportIn(x, y, 2)
+                    entities.add(block)
+                if col == "4":
+                    block = TeleportOut(x, y, 2)
+                    entities.add(block)
+                if col == "5":
+                    block = TeleportIn(x, y, 3)
+                    entities.add(block)
+                if col == "6":
+                    block = TeleportOut(x, y, 3)
+                    entities.add(block)
+                if col == "7":
+                    block = TeleportIn(x, y, 4)
+                    entities.add(block)
+                if col == "8":
+                    block = TeleportOut(x, y, 4)
+                    entities.add(block)
+                if col == "B":
+                    block = Button(x, y, 1)
+                    entities.add(block)
+                if col == "D":
+                    block = Door(x, y, 1)
+                    entities.add(block)
+                if col == "b":
+                    block = Button(x, y, 2)
+                    entities.add(block)
+                if col == "d":
+                    block = Door(x, y, 2)
                     entities.add(block)
                 x += blocks.SIZE
             y += blocks.SIZE

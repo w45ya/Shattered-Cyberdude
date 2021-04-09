@@ -57,7 +57,7 @@ class PlayerLeft(Player):
     def collide(self, vel_x, vel_y, entities):
         for e in entities:
             if pygame.sprite.collide_rect(self, e):
-                if isinstance(e, Block):
+                if isinstance(e, Block) or (isinstance(e, Door) and not e.open):
                     if vel_x > 0:
                         self.rect.right = e.rect.left
                     if vel_x < 0:
@@ -77,6 +77,16 @@ class PlayerLeft(Player):
                 if isinstance(e, PlayerRight):
                     self.teleporting(e.rect.x, e.rect.y)
                     self.win = True
+                if isinstance(e, TeleportIn):
+                    for i in entities:
+                        if isinstance(i, TeleportOut) and e.connect == i.connect:
+                            self.teleporting(i.rect.x, i.rect.y)
+                if isinstance(e, Button):
+                    for i in entities:
+                        if isinstance(i, Door) and e.connect == i.connect:
+                            e.pressed = True
+                            i.open = True
+
 
 class PlayerRight(Player):
     def update(self, move, up, delta, entities):
@@ -102,7 +112,7 @@ class PlayerRight(Player):
     def collide(self, vel_x, vel_y, entities):
         for e in entities:
             if pygame.sprite.collide_rect(self, e):
-                if isinstance(e, Block):
+                if isinstance(e, Block) or (isinstance(e, Door) and not e.open):
                     if vel_x > 0:
                         self.rect.right = e.rect.left
                     if vel_x < 0:
@@ -119,3 +129,12 @@ class PlayerRight(Player):
                     for i in entities:
                         if isinstance(i, PlayerLeft):
                             i.death()
+                if isinstance(e, TeleportIn):
+                    for i in entities:
+                        if isinstance(i, TeleportOut) and e.connect == i.connect:
+                            self.teleporting(i.rect.x, i.rect.y)
+                if isinstance(e, Button):
+                    for i in entities:
+                        if isinstance(i, Door) and e.connect == i.connect:
+                            e.pressed = True
+                            i.open = True
