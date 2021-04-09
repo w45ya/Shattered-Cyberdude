@@ -1,6 +1,7 @@
 import pygame
 from menu import *
 from player import *
+from levels import *
 pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.mixer.init()
 pygame.init()
@@ -35,8 +36,11 @@ class Game:
         self.story = StoryMenu(self)
         self.curr_menu = self.main_menu
 
-        self.player_left = PlayerLeft(10, 10)
-        self.player_right = PlayerRight(self.window_width - 42, 10)
+        self.player_left = PlayerLeft(50, 50)
+        self.player_right = PlayerRight(self.window_width - 42, 50)
+        self.level = Levels()
+        self.entities = Levels.build_level(self.level, 0)
+
 
     def run(self):
         self.running = True
@@ -93,11 +97,14 @@ class Game:
             self.delta = self.clock.get_time() / 1000
             self.events()
             self.screen.fill(self.Back_color)
-            #self.draw_text('Hello, Player!', 120, self.window_width/2, self.window_height/2)
-            self.player_left.update(self.RightKey, self.JumpKey, self.delta)
-            self.player_left.draw(self.screen)
-            self.player_right.update(self.RightKey, self.JumpKey, self.delta)
+            # self.draw_text('Hello, Player!', 120, self.window_width/2, self.window_height/2)
+            self.player_left.update(self.RightKey, self.JumpKey, self.delta, self.entities)
+
+            self.player_right.update(self.RightKey, self.JumpKey, self.delta, self.entities)
             self.player_right.draw(self.screen)
+            self.player_left.draw(self.screen)
+            for e in self.entities:
+                self.screen.blit(e.image, (e.rect.x, e.rect.y))
             pygame.display.flip()
 
 
