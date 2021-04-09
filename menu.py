@@ -1,5 +1,5 @@
 import pygame
-
+import pyganim
 
 class Menu:
     def __init__(self, game):
@@ -9,14 +9,24 @@ class Menu:
         self.run_display = True
         self.menu_selector = pygame.image.load('resources/menu/menu_selector.png')
         self.menu_background = pygame.image.load('resources/menu/menu_background.png')
+        self.menu_background_frame_1 = pygame.image.load('resources/menu/menu_background_1.png')
+        self.menu_background_frame_2 = pygame.image.load('resources/menu/menu_background_2.png')
+        self.menu_menu_background_animation = [self.menu_background_frame_1, self.menu_background_frame_1,
+                                               self.menu_background_frame_1, self.menu_background_frame_1,
+                                               self.menu_background_frame_2, self.menu_background_frame_1,
+                                               self.menu_background_frame_2, self.menu_background_frame_1,
+                                               self.menu_background_frame_1, self.menu_background_frame_1]
+        self.animation_delay = 200
+        self.animation_array = []
+        for a in self.menu_menu_background_animation:
+            self.animation_array.append((a, self.animation_delay))
         self.rect = self.menu_background.get_rect()
-
+        self.animation = pyganim.PygAnimation(self.animation_array)
         self.cursor_rect = self.menu_selector.get_rect()
         self.offset = -54
 
     def draw_cursor(self):
         self.game.screen.blit(self.menu_selector, self.cursor_rect)
-        #self.game.draw_text('> ', 100, self.cursor_rect.x, self.cursor_rect.y)
 
     def blit_screen(self):
         pygame.display.update()
@@ -41,10 +51,12 @@ class MainMenu(Menu):
             self.game.events()
             self.check_input()
             self.game.screen.fill(self.game.Back_color)
+            self.animation.play()
             self.game.screen.blit(self.menu_background, self.rect)
-            self.game.draw_text("Shattered Cyberdude", 130, self.title_x, self.title_y)
-            self.game.draw_text("Play", 120, self.start_x, self.start_y)
-            self.game.draw_text("Story", 120, self.story_x, self.story_y)
+            self.animation.blit(self.menu_background, (0, 0))
+            self.game.draw_text("Shattered Cyberdude", 130, self.title_x, self.title_y, self.game.Title_color)
+            self.game.draw_text("Play", 120, self.start_x, self.start_y, self.game.Font_color)
+            self.game.draw_text("Story", 120, self.story_x, self.story_y, self.game.Font_color)
             self.draw_cursor()
             self.blit_screen()
 
@@ -80,6 +92,6 @@ class StoryMenu(Menu):
                 self.run_display = False
             self.game.screen.fill(self.game.Back_color)
             self.game.screen.blit(self.menu_background, self.rect)
-            self.game.draw_text('Story', 150, self.game.window_width/2, self.game.window_height/2 - 300)
-            self.game.draw_text('Long time ago...', 15, self.game.window_width / 2, self.game.window_height / 2 + 10)
+            self.game.draw_text('Story', 150, self.game.window_width/2, self.game.window_height/2 - 300, self.game.Title_color)
+            self.game.draw_text('Long time ago...', 30, self.game.window_width / 2, self.game.window_height / 2 + 10, self.game.Font_color)
             self.blit_screen()

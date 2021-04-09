@@ -32,6 +32,7 @@ class Game:
 
         self.Back_color = (0, 36, 36)
         self.Font_color = (60, 120, 120)
+        self.Title_color = (106, 186, 151)
 
         self.main_menu = MainMenu(self)
         self.story = StoryMenu(self)
@@ -84,9 +85,9 @@ class Game:
         self.RightKey = False
         self.WrongKey = False
 
-    def draw_text(self, text, size, x, y):
+    def draw_text(self, text, size, x, y, color):
         font = pygame.font.Font(self.font, size)
-        text_surface = font.render(text, True, self.Font_color)
+        text_surface = font.render(text, True, color)
         text_rect = text_surface.get_rect()
         text_rect.center = (x, y)
         self.screen.blit(text_surface, text_rect)
@@ -105,7 +106,7 @@ class Game:
         else:
             pygame.time.wait(1000)
             self.screen.fill(self.Back_color)
-            self.draw_text('You win', 120, self.window_width / 2, self.window_height / 2)
+            self.draw_text('You win', 120, self.window_width / 2, self.window_height / 2, self.Title_color)
             pygame.display.flip()
             pygame.time.wait(1000)
             self.playing = False
@@ -123,7 +124,7 @@ class Game:
                 self.reset_keys()
 
             if self.level_completed:
-                self.draw_text('Level completed', 120, self.window_width / 2, self.window_height / 2)
+                self.draw_text('Level completed', 120, self.window_width / 2, self.window_height / 2, self.Title_color)
                 pygame.display.flip()
                 self.lvl_n += 1
                 self.set_level(self.lvl_n)

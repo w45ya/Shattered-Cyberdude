@@ -24,7 +24,6 @@ class Player(pygame.sprite.Sprite):
         self.vel_x = 0
         self.vel_y = 0
         self.teleporting(self.start_x, self.start_y)
-        print("dead")
 
     def teleporting(self, go_to_x, go_to_y):
         self.rect.x = go_to_x
