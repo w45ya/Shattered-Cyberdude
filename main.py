@@ -34,6 +34,34 @@ class Game:
         self.Font_color = (60, 120, 120)
         self.Title_color = (106, 186, 151)
 
+        self.background = pygame.image.load('resources/background/background.png')
+        self.background_01 = pygame.image.load('resources/background/background_01.png')
+        self.background_02 = pygame.image.load('resources/background/background_02.png')
+        self.background_03 = pygame.image.load('resources/background/background_03.png')
+        self.background_04 = pygame.image.load('resources/background/background_04.png')
+        self.background_05 = pygame.image.load('resources/background/background_05.png')
+        self.background_06 = pygame.image.load('resources/background/background_06.png')
+        self.background_07 = pygame.image.load('resources/background/background_07.png')
+        self.background_08 = pygame.image.load('resources/background/background_08.png')
+        self.background_09 = pygame.image.load('resources/background/background_09.png')
+        self.background_10 = pygame.image.load('resources/background/background_10.png')
+        self.background_11 = pygame.image.load('resources/background/background_11.png')
+        self.background_12 = pygame.image.load('resources/background/background_12.png')
+        self.background_13 = pygame.image.load('resources/background/background_13.png')
+        self.background_14 = pygame.image.load('resources/background/background_14.png')
+        self.background_15 = pygame.image.load('resources/background/background_15.png')
+        self.background_16 = pygame.image.load('resources/background/background_16.png')
+        self.background_animation = [self.background_01, self.background_02, self.background_03, self.background_04,
+                                     self.background_05, self.background_06, self.background_07, self.background_08,
+                                     self.background_09, self.background_10, self.background_11, self.background_12,
+                                     self.background_13, self.background_14, self.background_15, self.background_16]
+        self.animation_delay = 200
+        self.animation_array = []
+        for a in self.background_animation:
+            self.animation_array.append((a, self.animation_delay))
+        self.animation = pyganim.PygAnimation(self.animation_array)
+        self.rect = self.background.get_rect()
+
         self.main_menu = MainMenu(self)
         self.story = StoryMenu(self)
         self.curr_menu = self.main_menu
@@ -106,7 +134,10 @@ class Game:
         else:
             pygame.time.wait(1000)
             self.screen.fill(self.Back_color)
-            self.draw_text('You win', 120, self.window_width / 2, self.window_height / 2, self.Title_color)
+            self.screen.blit(pygame.image.load('resources/background/background.png'), self.rect)
+            self.draw_text('You win', 120, self.window_width / 2 + 5, self.window_height / 2 + 5, self.Back_color)
+            self.draw_text('You win', 120, self.window_width / 2 - 5, self.window_height / 2 - 5, self.Title_color)
+            self.draw_text('You win', 120, self.window_width / 2, self.window_height / 2, self.Font_color)
             pygame.display.flip()
             pygame.time.wait(1000)
             self.playing = False
@@ -124,7 +155,9 @@ class Game:
                 self.reset_keys()
 
             if self.level_completed:
-                self.draw_text('Level completed', 120, self.window_width / 2, self.window_height / 2, self.Title_color)
+                self.draw_text('Level completed', 120, self.window_width / 2 + 5, self.window_height / 2 + 5, self.Back_color )
+                self.draw_text('Level completed', 120, self.window_width / 2 - 5, self.window_height / 2 - 5, self.Title_color)
+                self.draw_text('Level completed', 120, self.window_width / 2, self.window_height / 2, self.Font_color)
                 pygame.display.flip()
                 self.lvl_n += 1
                 self.set_level(self.lvl_n)
@@ -132,6 +165,9 @@ class Game:
                 self.level_completed = False
 
             self.screen.fill(self.Back_color)
+            self.animation.play()
+            self.screen.blit(self.background, self.rect)
+            self.animation.blit(self.background, (0, 0))
             self.player_left.update(self.RightKey, self.JumpKey, self.delta, self.entities)
             self.player_right.update(self.RightKey, self.JumpKey, self.delta, self.entities)
             self.camera.update(self.player_left)
