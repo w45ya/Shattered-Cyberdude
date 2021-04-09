@@ -74,6 +74,10 @@ class PlayerLeft(Player):
                         if isinstance(i, PlayerRight):
                             i.death()
                 if isinstance(e, PlayerRight):
+                    self.vel_x = 0
+                    self.vel_y = 0
+                    e.vel_x = 0
+                    e.vel_y = 0
                     self.teleporting(e.rect.x, e.rect.y)
                     self.win = True
                 if isinstance(e, TeleportIn):

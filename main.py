@@ -30,7 +30,7 @@ class Game:
         self.RightKey = False
         self.WrongKey = False
 
-        self.Back_color = (0, 36, 36)
+        self.Back_color = (0, 70, 70)
         self.Font_color = (60, 120, 120)
         self.Title_color = (106, 186, 151)
 
@@ -55,7 +55,7 @@ class Game:
                                      self.background_05, self.background_06, self.background_07, self.background_08,
                                      self.background_09, self.background_10, self.background_11, self.background_12,
                                      self.background_13, self.background_14, self.background_15, self.background_16]
-        self.animation_delay = 200
+        self.animation_delay = 100
         self.animation_array = []
         for a in self.background_animation:
             self.animation_array.append((a, self.animation_delay))
