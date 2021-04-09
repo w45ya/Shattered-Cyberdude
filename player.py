@@ -1,8 +1,10 @@
 import pygame
 from blocks import *
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
         self.start_x = x
         self.start_y = y
         self.vel_x = 0
@@ -12,17 +14,18 @@ class Player(pygame.sprite.Sprite):
         self.gravity = 0.35
         self.on_ground_left = False
         self.on_ground_right = False
-        self.flipped = False
         self.image = pygame.Surface((32, 32))
         self.image.fill((255, 255, 255))
         self.rect = pygame.Rect(x, y, 32, 32)
-        #self.image.set_colorkey((32, 64, 64))
+        self.win = False
+        # self.image.set_colorkey((32, 64, 64))
 
     def death(self):
         self.vel_x = 0
         self.vel_y = 0
         self.teleporting(self.start_x, self.start_y)
         print("dead")
+
     def teleporting(self, go_to_x, go_to_y):
         self.rect.x = go_to_x
         self.rect.y = go_to_y
@@ -66,6 +69,14 @@ class PlayerLeft(Player):
                     if vel_y < 0:
                         self.rect.top = e.rect.bottom
                         self.vel_y = 0
+                if isinstance(e, DeathBlock):
+                    self.death()
+                    for i in entities:
+                        if isinstance(i, PlayerRight):
+                            i.death()
+                if isinstance(e, PlayerRight):
+                    self.teleporting(e.rect.x, e.rect.y)
+                    self.win = True
 
 class PlayerRight(Player):
     def update(self, move, up, delta, entities):
@@ -103,3 +114,8 @@ class PlayerRight(Player):
                     if vel_y < 0:
                         self.rect.top = e.rect.bottom
                         self.vel_y = 0
+                if isinstance(e, DeathBlock):
+                    self.death()
+                    for i in entities:
+                        if isinstance(i, PlayerLeft):
+                            i.death()
