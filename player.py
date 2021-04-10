@@ -82,6 +82,7 @@ class PlayerLeft(Player):
                 if isinstance(e, DeathBlock):
                     self.death(entities)
                     sound[3].play()
+                    pygame.time.wait(500)
                     for i in entities:
                         if isinstance(i, PlayerRight):
                             i.death(entities)
@@ -148,6 +149,7 @@ class PlayerRight(Player):
                 if isinstance(e, DeathBlock):
                     self.death(entities)
                     sound[3].play()
+                    pygame.time.wait(500)
                     for i in entities:
                         if isinstance(i, PlayerLeft):
                             i.death(entities)
