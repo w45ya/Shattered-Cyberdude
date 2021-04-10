@@ -70,7 +70,6 @@ class Game:
         self.lvl_n = 0
         self.level_completed = False
 
-
     def run(self):
         self.running = True
         while self.running:
@@ -155,7 +154,7 @@ class Game:
                 self.reset_keys()
 
             if self.level_completed:
-                self.draw_text('Level completed', 120, self.window_width / 2 + 5, self.window_height / 2 + 5, self.Back_color )
+                self.draw_text('Level completed', 120, self.window_width / 2 + 5, self.window_height / 2 + 5, self.Back_color)
                 self.draw_text('Level completed', 120, self.window_width / 2 - 5, self.window_height / 2 - 5, self.Title_color)
                 self.draw_text('Level completed', 120, self.window_width / 2, self.window_height / 2, self.Font_color)
                 pygame.display.flip()
