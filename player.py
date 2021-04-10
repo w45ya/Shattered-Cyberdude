@@ -81,6 +81,7 @@ class PlayerLeft(Player):
                         self.vel_y = 0
                 if isinstance(e, DeathBlock):
                     self.death(entities)
+                    sound[3].play()
                     for i in entities:
                         if isinstance(i, PlayerRight):
                             i.death(entities)
@@ -146,6 +147,7 @@ class PlayerRight(Player):
                         self.vel_y = 0
                 if isinstance(e, DeathBlock):
                     self.death(entities)
+                    sound[3].play()
                     for i in entities:
                         if isinstance(i, PlayerLeft):
                             i.death(entities)

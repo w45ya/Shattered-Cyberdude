@@ -67,11 +67,14 @@ class Game:
         self.sound_noise.set_volume(0.5)
         self.sound_level = pygame.mixer.Sound('resources/sound/level.ogg')
         self.sound_victory = pygame.mixer.Sound('resources/sound/victory.ogg')
+        self.sound_menu_press = pygame.mixer.Sound('resources/sound/menu_press.ogg')
+        self.sound_menu_select = pygame.mixer.Sound('resources/sound/menu_select.ogg')
         self.sound_jump = pygame.mixer.Sound('resources/sound/jump.ogg')
         self.sound_door = pygame.mixer.Sound('resources/sound/door.ogg')
         self.sound_tp = pygame.mixer.Sound('resources/sound/tp.ogg')
+        self.sound_death = pygame.mixer.Sound('resources/sound/death.ogg')
         self.sound_tp.set_volume(0.5)
-        self.sound_player = [self.sound_jump, self.sound_door, self.sound_tp]
+        self.sound_player = [self.sound_jump, self.sound_door, self.sound_tp, self.sound_death]
 
         self.main_menu = MainMenu(self)
         self.story = StoryMenu(self)
@@ -108,8 +111,13 @@ class Game:
                     self.sound_wrong.play()
                 if e.key == pygame.K_d or e.key == pygame.K_RIGHT:
                     self.RightKey = True
+                    if self.main_menu.run_display or self.story.run_display:
+                        self.sound_menu_select.play()
                 if e.key == pygame.K_SPACE:
                     self.JumpKey = True
+                    if self.main_menu.run_display or self.story.run_display:
+                        self.sound_menu_press.play()
+
             if e.type == pygame.KEYUP:
                 if e.key == pygame.K_d or e.key == pygame.K_RIGHT:
                     self.RightKey = False
