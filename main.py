@@ -23,12 +23,10 @@ class Game:
         self.font = 'resources/fonts/Pixeboy-z8XGD.ttf'
         pygame.display.set_caption("Shattered Cyberdude")
         self.clock = pygame.time.Clock()
-        self.delta = self.clock.get_time() / 1000
         self.fps = 120
 
         self.JumpKey = False
         self.RightKey = False
-        self.WrongKey = False
 
         self.Back_color = (0, 70, 70)
         self.Font_color = (60, 120, 120)
@@ -62,6 +60,19 @@ class Game:
         self.animation = pyganim.PygAnimation(self.animation_array)
         self.rect = self.background.get_rect()
 
+        self.sound_wrong = pygame.mixer.Sound('resources/sound/wrong.ogg')
+        self.sound_wrong.set_volume(0.3)
+        self.sound_start = pygame.mixer.Sound('resources/sound/start.ogg')
+        self.sound_noise = pygame.mixer.Sound('resources/sound/noise.ogg')
+        self.sound_noise.set_volume(0.5)
+        self.sound_level = pygame.mixer.Sound('resources/sound/level.ogg')
+        self.sound_victory = pygame.mixer.Sound('resources/sound/victory.ogg')
+        self.sound_jump = pygame.mixer.Sound('resources/sound/jump.ogg')
+        self.sound_door = pygame.mixer.Sound('resources/sound/door.ogg')
+        self.sound_tp = pygame.mixer.Sound('resources/sound/tp.ogg')
+        self.sound_tp.set_volume(0.5)
+        self.sound_player = [self.sound_jump, self.sound_door, self.sound_tp]
+
         self.main_menu = MainMenu(self)
         self.story = StoryMenu(self)
         self.curr_menu = self.main_menu
@@ -72,6 +83,8 @@ class Game:
 
     def run(self):
         self.running = True
+        self.sound_start.play()
+        self.sound_noise.play(-1)
         while self.running:
             if not self.playing:
                 self.curr_menu.display_menu()
@@ -92,16 +105,12 @@ class Game:
                 if e.key == pygame.K_w or e.key == pygame.K_w \
                         or e.key == pygame.K_s or e.key == pygame.K_DOWN \
                         or e.key == pygame.K_a or e.key == pygame.K_LEFT:
-                    self.WrongKey = True
+                    self.sound_wrong.play()
                 if e.key == pygame.K_d or e.key == pygame.K_RIGHT:
                     self.RightKey = True
                 if e.key == pygame.K_SPACE:
                     self.JumpKey = True
             if e.type == pygame.KEYUP:
-                if e.key == pygame.K_w or e.key == pygame.K_w \
-                        or e.key == pygame.K_s or e.key == pygame.K_DOWN \
-                        or e.key == pygame.K_a or e.key == pygame.K_LEFT:
-                    self.WrongKey = False
                 if e.key == pygame.K_d or e.key == pygame.K_RIGHT:
                     self.RightKey = False
                 if e.key == pygame.K_SPACE:
@@ -132,6 +141,7 @@ class Game:
                     self.player_right = e
         else:
             pygame.time.wait(1000)
+            self.sound_victory.play()
             self.screen.fill(self.Back_color)
             self.screen.blit(pygame.image.load('resources/background/background.png'), self.rect)
             self.draw_text('You win', 120, self.window_width / 2 + 5, self.window_height / 2 + 5, self.Back_color)
@@ -154,6 +164,7 @@ class Game:
                 self.reset_keys()
 
             if self.level_completed:
+                self.sound_level.play()
                 self.draw_text('Level completed', 120, self.window_width / 2 + 5, self.window_height / 2 + 5, self.Back_color)
                 self.draw_text('Level completed', 120, self.window_width / 2 - 5, self.window_height / 2 - 5, self.Title_color)
                 self.draw_text('Level completed', 120, self.window_width / 2, self.window_height / 2, self.Font_color)
@@ -167,8 +178,8 @@ class Game:
             self.animation.play()
             self.screen.blit(self.background, self.rect)
             self.animation.blit(self.background, (0, 0))
-            self.player_left.update(self.RightKey, self.JumpKey, self.delta, self.entities)
-            self.player_right.update(self.RightKey, self.JumpKey, self.delta, self.entities)
+            self.player_left.update(self.RightKey, self.JumpKey, self.entities, self.sound_player)
+            self.player_right.update(self.RightKey, self.JumpKey, self.entities, self.sound_player)
             for e in self.entities:
                 if isinstance(e, DeathBlock) or isinstance(e, TeleportIn)\
                         or isinstance(e, TeleportOut):

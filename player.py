@@ -34,7 +34,6 @@ class Player(pygame.sprite.Sprite):
                         e.image = e.image_unpressed
                         i.image = i.texture
 
-
     def teleporting(self, go_to_x, go_to_y):
         self.rect.x = go_to_x
         self.rect.y = go_to_y
@@ -44,10 +43,11 @@ class Player(pygame.sprite.Sprite):
 
 
 class PlayerLeft(Player):
-    def update(self, move, up, delta, entities):
+    def update(self, move, up, entities, sound):
         self.image = pygame.image.load('resources/textures/dude_left.png')
         if up and self.on_ground_left:
             self.vel_y = self.jump_power
+            sound[0].play()
         if move:
             self.vel_x += self.max_speed
         if not move:
@@ -60,11 +60,11 @@ class PlayerLeft(Player):
         if self.rect.y > 5000:
             self.death(entities)
         self.rect.y += self.vel_y
-        self.collide(0, self.vel_y, entities)
+        self.collide(0, self.vel_y, entities, sound)
         self.rect.x += self.vel_x
-        self.collide(self.vel_x, 0, entities)
+        self.collide(self.vel_x, 0, entities, sound)
 
-    def collide(self, vel_x, vel_y, entities):
+    def collide(self, vel_x, vel_y, entities, sound):
         for e in entities:
             if pygame.sprite.collide_rect(self, e):
                 if isinstance(e, Block) or (isinstance(e, Door) and not e.open):
@@ -95,7 +95,10 @@ class PlayerLeft(Player):
                     for i in entities:
                         if isinstance(i, TeleportOut) and e.connect == i.connect:
                             self.teleporting(i.rect.x, i.rect.y)
+                    sound[2].play()
                 if isinstance(e, Button):
+                    if not e.pressed:
+                        sound[1].play()
                     for i in entities:
                         if isinstance(i, Door) and e.connect == i.connect:
                             e.pressed = True
@@ -105,13 +108,11 @@ class PlayerLeft(Player):
                             i.image.set_colorkey((0, 0, 0))
 
 
-
 class PlayerRight(Player):
-    def update(self, move, up, delta, entities):
+    def update(self, move, up, entities, sound):
         self.image = pygame.image.load('resources/textures/dude_right.png')
         if up and self.on_ground_right:
             self.vel_y = self.jump_power
-
         if move:
             self.vel_x -= self.max_speed
         if not move:
@@ -124,11 +125,11 @@ class PlayerRight(Player):
             self.death(entities)
         self.on_ground_right = False
         self.rect.y += self.vel_y
-        self.collide(0, self.vel_y, entities)
+        self.collide(0, self.vel_y, entities, sound)
         self.rect.x += self.vel_x
-        self.collide(self.vel_x, 0, entities)
+        self.collide(self.vel_x, 0, entities, sound)
 
-    def collide(self, vel_x, vel_y, entities):
+    def collide(self, vel_x, vel_y, entities, sound):
         for e in entities:
             if pygame.sprite.collide_rect(self, e):
                 if isinstance(e, Block) or (isinstance(e, Door) and not e.open):
@@ -152,8 +153,15 @@ class PlayerRight(Player):
                     for i in entities:
                         if isinstance(i, TeleportOut) and e.connect == i.connect:
                             self.teleporting(i.rect.x, i.rect.y)
+                    sound[2].play()
                 if isinstance(e, Button):
+                    if not e.pressed:
+                        sound[1].play()
                     for i in entities:
                         if isinstance(i, Door) and e.connect == i.connect:
                             e.pressed = True
                             i.open = True
+                            e.image = e.image_pressed
+                            i.image = pygame.Surface((SIZE, SIZE))
+                            i.image.set_colorkey((0, 0, 0))
+
