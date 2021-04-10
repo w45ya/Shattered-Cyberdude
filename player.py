@@ -1,4 +1,5 @@
 import pygame
+import pyganim
 from blocks import *
 
 
@@ -18,7 +19,7 @@ class Player(pygame.sprite.Sprite):
         self.image.fill((255, 255, 255))
         self.rect = pygame.Rect(x, y, 32, 32)
         self.win = False
-        # self.image.set_colorkey((32, 64, 64))
+        self.image.set_colorkey((255, 255, 255))
 
     def death(self):
         self.vel_x = 0
@@ -35,6 +36,7 @@ class Player(pygame.sprite.Sprite):
 
 class PlayerLeft(Player):
     def update(self, move, up, delta, entities):
+        self.image = pygame.image.load('resources/textures/dude_left.png')
         if up and self.on_ground_left:
             self.vel_y = self.jump_power
         if move:
@@ -78,7 +80,7 @@ class PlayerLeft(Player):
                     self.vel_y = 0
                     e.vel_x = 0
                     e.vel_y = 0
-                    self.teleporting(e.rect.x, e.rect.y)
+                    self.teleporting(e.rect.x-4, e.rect.y)
                     self.win = True
                 if isinstance(e, TeleportIn):
                     for i in entities:
@@ -93,6 +95,7 @@ class PlayerLeft(Player):
 
 class PlayerRight(Player):
     def update(self, move, up, delta, entities):
+        self.image = pygame.image.load('resources/textures/dude_right.png')
         if up and self.on_ground_right:
             self.vel_y = self.jump_power
 

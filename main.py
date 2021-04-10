@@ -170,12 +170,15 @@ class Game:
             self.animation.blit(self.background, (0, 0))
             self.player_left.update(self.RightKey, self.JumpKey, self.delta, self.entities)
             self.player_right.update(self.RightKey, self.JumpKey, self.delta, self.entities)
-            self.camera.update(self.player_left)
             for e in self.entities:
+                if isinstance(e, DeathBlock) or isinstance(e, TeleportIn)\
+                        or isinstance(e, TeleportOut):
+                    e.update(game)
                 self.screen.blit(e.image, self.camera.apply(e))
             for e in self.entities:
                 if isinstance(e, PlayerLeft) or isinstance(e, PlayerRight):
                     self.screen.blit(e.image, self.camera.apply(e))
+            self.camera.update(self.player_left)
             pygame.display.flip()
 
 
