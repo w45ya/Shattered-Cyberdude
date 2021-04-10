@@ -44,7 +44,7 @@ class Player(pygame.sprite.Sprite):
 
 class PlayerLeft(Player):
     def update(self, move, up, entities, sound):
-        self.image = pygame.image.load('resources/textures/dude_left.png')
+        self.image = pygame.image.load(resource_path('resources/textures/dude_left.png'))
         if up and self.on_ground_left:
             self.vel_y = self.jump_power
             sound[0].play()
@@ -112,7 +112,7 @@ class PlayerLeft(Player):
 
 class PlayerRight(Player):
     def update(self, move, up, entities, sound):
-        self.image = pygame.image.load('resources/textures/dude_right.png')
+        self.image = pygame.image.load(resource_path('resources/textures/dude_right.png'))
         if up and self.on_ground_right:
             self.vel_y = self.jump_power
         if move:

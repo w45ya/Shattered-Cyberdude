@@ -20,7 +20,7 @@ class Game:
             pygame.DOUBLEBUF | pygame.HWSURFACE
         )
         # self.font_name = pygame.font.get_default_font()
-        self.font = 'resources/fonts/Pixeboy-z8XGD.ttf'
+        self.font = resource_path('resources/fonts/Pixeboy-z8XGD.ttf')
         pygame.display.set_caption("Shattered Cyberdude")
         self.clock = pygame.time.Clock()
         self.fps = 120
@@ -31,24 +31,23 @@ class Game:
         self.Back_color = (0, 70, 70)
         self.Font_color = (60, 120, 120)
         self.Title_color = (106, 186, 151)
-
-        self.background = pygame.image.load('resources/background/background.png')
-        self.background_01 = pygame.image.load('resources/background/background_01.png')
-        self.background_02 = pygame.image.load('resources/background/background_02.png')
-        self.background_03 = pygame.image.load('resources/background/background_03.png')
-        self.background_04 = pygame.image.load('resources/background/background_04.png')
-        self.background_05 = pygame.image.load('resources/background/background_05.png')
-        self.background_06 = pygame.image.load('resources/background/background_06.png')
-        self.background_07 = pygame.image.load('resources/background/background_07.png')
-        self.background_08 = pygame.image.load('resources/background/background_08.png')
-        self.background_09 = pygame.image.load('resources/background/background_09.png')
-        self.background_10 = pygame.image.load('resources/background/background_10.png')
-        self.background_11 = pygame.image.load('resources/background/background_11.png')
-        self.background_12 = pygame.image.load('resources/background/background_12.png')
-        self.background_13 = pygame.image.load('resources/background/background_13.png')
-        self.background_14 = pygame.image.load('resources/background/background_14.png')
-        self.background_15 = pygame.image.load('resources/background/background_15.png')
-        self.background_16 = pygame.image.load('resources/background/background_16.png')
+        self.background = pygame.image.load(resource_path('resources/background/background.png'))
+        self.background_01 = pygame.image.load(resource_path('resources/background/background_01.png'))
+        self.background_02 = pygame.image.load(resource_path('resources/background/background_02.png'))
+        self.background_03 = pygame.image.load(resource_path('resources/background/background_03.png'))
+        self.background_04 = pygame.image.load(resource_path('resources/background/background_04.png'))
+        self.background_05 = pygame.image.load(resource_path('resources/background/background_05.png'))
+        self.background_06 = pygame.image.load(resource_path('resources/background/background_06.png'))
+        self.background_07 = pygame.image.load(resource_path('resources/background/background_07.png'))
+        self.background_08 = pygame.image.load(resource_path('resources/background/background_08.png'))
+        self.background_09 = pygame.image.load(resource_path('resources/background/background_09.png'))
+        self.background_10 = pygame.image.load(resource_path('resources/background/background_10.png'))
+        self.background_11 = pygame.image.load(resource_path('resources/background/background_11.png'))
+        self.background_12 = pygame.image.load(resource_path('resources/background/background_12.png'))
+        self.background_13 = pygame.image.load(resource_path('resources/background/background_13.png'))
+        self.background_14 = pygame.image.load(resource_path('resources/background/background_14.png'))
+        self.background_15 = pygame.image.load(resource_path('resources/background/background_15.png'))
+        self.background_16 = pygame.image.load(resource_path('resources/background/background_16.png'))
         self.background_animation = [self.background_01, self.background_02, self.background_03, self.background_04,
                                      self.background_05, self.background_06, self.background_07, self.background_08,
                                      self.background_09, self.background_10, self.background_11, self.background_12,
@@ -60,19 +59,19 @@ class Game:
         self.animation = pyganim.PygAnimation(self.animation_array)
         self.rect = self.background.get_rect()
 
-        self.sound_wrong = pygame.mixer.Sound('resources/sound/wrong.ogg')
+        self.sound_wrong = pygame.mixer.Sound(resource_path('resources/sound/wrong.ogg'))
         self.sound_wrong.set_volume(0.3)
-        self.sound_start = pygame.mixer.Sound('resources/sound/start.ogg')
-        self.sound_noise = pygame.mixer.Sound('resources/sound/noise.ogg')
+        self.sound_start = pygame.mixer.Sound(resource_path('resources/sound/start.ogg'))
+        self.sound_noise = pygame.mixer.Sound(resource_path('resources/sound/noise.ogg'))
         self.sound_noise.set_volume(0.5)
-        self.sound_level = pygame.mixer.Sound('resources/sound/level.ogg')
-        self.sound_victory = pygame.mixer.Sound('resources/sound/victory.ogg')
-        self.sound_menu_press = pygame.mixer.Sound('resources/sound/menu_press.ogg')
-        self.sound_menu_select = pygame.mixer.Sound('resources/sound/menu_select.ogg')
-        self.sound_jump = pygame.mixer.Sound('resources/sound/jump.ogg')
-        self.sound_door = pygame.mixer.Sound('resources/sound/door.ogg')
-        self.sound_tp = pygame.mixer.Sound('resources/sound/tp.ogg')
-        self.sound_death = pygame.mixer.Sound('resources/sound/death.ogg')
+        self.sound_level = pygame.mixer.Sound(resource_path('resources/sound/level.ogg'))
+        self.sound_victory = pygame.mixer.Sound(resource_path('resources/sound/victory.ogg'))
+        self.sound_menu_press = pygame.mixer.Sound(resource_path('resources/sound/menu_press.ogg'))
+        self.sound_menu_select = pygame.mixer.Sound(resource_path('resources/sound/menu_select.ogg'))
+        self.sound_jump = pygame.mixer.Sound(resource_path('resources/sound/jump.ogg'))
+        self.sound_door = pygame.mixer.Sound(resource_path('resources/sound/door.ogg'))
+        self.sound_tp = pygame.mixer.Sound(resource_path('resources/sound/tp.ogg'))
+        self.sound_death = pygame.mixer.Sound(resource_path('resources/sound/death.ogg'))
         self.sound_tp.set_volume(0.5)
         self.sound_player = [self.sound_jump, self.sound_door, self.sound_tp, self.sound_death]
 
@@ -149,7 +148,7 @@ class Game:
             pygame.time.wait(1000)
             self.sound_victory.play()
             self.screen.fill(self.Back_color)
-            self.screen.blit(pygame.image.load('resources/background/background.png'), self.rect)
+            self.screen.blit(pygame.image.load(resource_path('resources/background/background.png')), self.rect)
             self.draw_text('You win', 120, self.window_width / 2 + 5, self.window_height / 2 + 5, self.Back_color)
             self.draw_text('You win', 120, self.window_width / 2 - 5, self.window_height / 2 - 5, self.Title_color)
             self.draw_text('You win', 120, self.window_width / 2, self.window_height / 2, self.Font_color)
@@ -187,8 +186,7 @@ class Game:
             self.player_left.update(self.RightKey, self.JumpKey, self.entities, self.sound_player)
             self.player_right.update(self.RightKey, self.JumpKey, self.entities, self.sound_player)
             for e in self.entities:
-                if isinstance(e, DeathBlock) or isinstance(e, TeleportIn)\
-                        or isinstance(e, TeleportOut):
+                if isinstance(e, DeathBlock) or isinstance(e, TeleportIn) or isinstance(e, TeleportOut):
                     e.update(game)
                 self.screen.blit(e.image, self.camera.apply(e))
             for e in self.entities:

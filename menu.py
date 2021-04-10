@@ -1,5 +1,7 @@
 import pygame
 import pyganim
+from blocks import *
+
 
 class Menu:
     def __init__(self, game):
@@ -7,10 +9,10 @@ class Menu:
         self.mid_w = self.game.window_width / 2
         self.mid_h = self.game.window_height / 2
         self.run_display = True
-        self.menu_selector = pygame.image.load('resources/menu/menu_selector.png')
-        self.menu_background = pygame.image.load('resources/menu/menu_background.png')
-        self.menu_background_frame_1 = pygame.image.load('resources/menu/menu_background_1.png')
-        self.menu_background_frame_2 = pygame.image.load('resources/menu/menu_background_2.png')
+        self.menu_selector = pygame.image.load(resource_path('resources/menu/menu_selector.png'))
+        self.menu_background = pygame.image.load(resource_path('resources/menu/menu_background.png'))
+        self.menu_background_frame_1 = pygame.image.load(resource_path('resources/menu/menu_background_1.png'))
+        self.menu_background_frame_2 = pygame.image.load(resource_path('resources/menu/menu_background_2.png'))
         self.menu_background_animation = [self.menu_background_frame_1, self.menu_background_frame_1,
                                                self.menu_background_frame_1, self.menu_background_frame_1,
                                                self.menu_background_frame_2, self.menu_background_frame_1,
