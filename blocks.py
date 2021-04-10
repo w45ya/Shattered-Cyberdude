@@ -1,5 +1,6 @@
 import pygame
 import pyganim
+
 SIZE = 32
 
 
@@ -64,6 +65,7 @@ class TeleportIn(pygame.sprite.Sprite):
         self.game.screen.blit(self.image, self.rect)
         self.animation.blit(self.image, (0, 0))
 
+
 class TeleportOut(pygame.sprite.Sprite):
     def __init__(self, x, y, n):
         pygame.sprite.Sprite.__init__(self)
@@ -90,12 +92,17 @@ class TeleportOut(pygame.sprite.Sprite):
         self.game.screen.blit(self.image, self.rect)
         self.animation.blit(self.image, (0, 0))
 
+
 class Button(pygame.sprite.Sprite):
     def __init__(self, x, y, n):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((SIZE, SIZE/2))
+        self.image = pygame.Surface((SIZE, SIZE / 2))
         self.image.fill((120, 120, 120))
-        self.rect = pygame.Rect(x, y + SIZE/2, SIZE, SIZE/2)
+        self.rect = pygame.Rect(x, y, SIZE, SIZE / 2)
+        self.image.set_colorkey((120, 120, 120))
+        self.image_unpressed = pygame.image.load('resources/textures/button.png').convert_alpha()
+        self.image_pressed = pygame.image.load('resources/textures/button_pressed.png').convert_alpha()
+        self.image = self.image_unpressed
         self.connect = n
         self.pressed = False
 
@@ -106,5 +113,8 @@ class Door(pygame.sprite.Sprite):
         self.image = pygame.Surface((SIZE, SIZE))
         self.image.fill((0, 0, 0))
         self.rect = pygame.Rect(x, y, SIZE, SIZE)
+        self.image.set_colorkey((0, 0, 0))
+        self.texture = pygame.image.load('resources/textures/door.png')
+        self.image = self.texture
         self.connect = n
         self.open = False

@@ -21,10 +21,19 @@ class Player(pygame.sprite.Sprite):
         self.win = False
         self.image.set_colorkey((255, 255, 255))
 
-    def death(self):
+    def death(self, entities):
         self.vel_x = 0
         self.vel_y = 0
         self.teleporting(self.start_x, self.start_y)
+        for e in entities:
+            if isinstance(e, Button):
+                for i in entities:
+                    if isinstance(i, Door) and e.connect == i.connect:
+                        e.pressed = False
+                        i.open = False
+                        e.image = e.image_unpressed
+                        i.image = i.texture
+
 
     def teleporting(self, go_to_x, go_to_y):
         self.rect.x = go_to_x
@@ -49,7 +58,7 @@ class PlayerLeft(Player):
         if self.vel_x > self.max_speed:
             self.vel_x = self.max_speed
         if self.rect.y > 5000:
-            self.death()
+            self.death(entities)
         self.rect.y += self.vel_y
         self.collide(0, self.vel_y, entities)
         self.rect.x += self.vel_x
@@ -71,10 +80,10 @@ class PlayerLeft(Player):
                         self.rect.top = e.rect.bottom
                         self.vel_y = 0
                 if isinstance(e, DeathBlock):
-                    self.death()
+                    self.death(entities)
                     for i in entities:
                         if isinstance(i, PlayerRight):
-                            i.death()
+                            i.death(entities)
                 if isinstance(e, PlayerRight):
                     self.vel_x = 0
                     self.vel_y = 0
@@ -91,6 +100,10 @@ class PlayerLeft(Player):
                         if isinstance(i, Door) and e.connect == i.connect:
                             e.pressed = True
                             i.open = True
+                            e.image = e.image_pressed
+                            i.image = pygame.Surface((SIZE, SIZE))
+                            i.image.set_colorkey((0, 0, 0))
+
 
 
 class PlayerRight(Player):
@@ -108,7 +121,7 @@ class PlayerRight(Player):
         if self.vel_x < -self.max_speed:
             self.vel_x = -self.max_speed
         if self.rect.y > 5000:
-            self.death()
+            self.death(entities)
         self.on_ground_right = False
         self.rect.y += self.vel_y
         self.collide(0, self.vel_y, entities)
@@ -131,10 +144,10 @@ class PlayerRight(Player):
                         self.rect.top = e.rect.bottom
                         self.vel_y = 0
                 if isinstance(e, DeathBlock):
-                    self.death()
+                    self.death(entities)
                     for i in entities:
                         if isinstance(i, PlayerLeft):
-                            i.death()
+                            i.death(entities)
                 if isinstance(e, TeleportIn):
                     for i in entities:
                         if isinstance(i, TeleportOut) and e.connect == i.connect:
