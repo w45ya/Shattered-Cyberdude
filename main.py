@@ -109,11 +109,11 @@ class Game:
                     self.sound_wrong.play()
                 if e.key == pygame.K_d or e.key == pygame.K_RIGHT:
                     self.RightKey = True
-                    if self.main_menu.run_display or self.story.run_display:
+                    if not self.playing:
                         self.sound_menu_select.play()
                 if e.key == pygame.K_SPACE:
                     self.JumpKey = True
-                    if self.main_menu.run_display or self.story.run_display:
+                    if not self.playing:
                         self.sound_menu_press.play()
 
             if e.type == pygame.KEYUP:
