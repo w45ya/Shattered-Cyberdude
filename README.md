@@ -5,7 +5,7 @@ Sounds taken from freesound.org
 
 Font used: Pixeboy
 
-##Story
+## Story
 Cyberdude lived in one peaceful cyberspace, but one day his home became a victim of an attack of wandering viruses.  With the help of the intervention of the all-seeing firewall, the cyberspace was cleared of uninvited guests. Unfortunately, the cyber-bullies managed to thoroughly destroy the internal code of cyberspace and our character suffered the most. He was broken in half, and now he needs to find himself. Literally!
 
 By the way, one of the viruses turned out to have a code breaking the fourth wall, so the controls are also broken. Now both halves of our hero are only able to move forward and jump. And they can move only at the same time. Such a difficult fate.
