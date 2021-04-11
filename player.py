@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.vel_x = 0
         self.vel_y = 0
         self.max_speed = 2
-        self.jump_power = -6
+        self.jump_power = -7
         self.gravity = 0.35
         self.on_ground_left = False
         self.on_ground_right = False
@@ -132,8 +132,10 @@ class PlayerRight(Player):
             self.death(entities)
         self.on_ground_right = False
         self.rect.y += self.vel_y
+        self.hitbox.center = self.rect.center
         self.collide(0, self.vel_y, entities, sound)
         self.rect.x += self.vel_x
+        self.hitbox.center = self.rect.center
         self.collide(self.vel_x, 0, entities, sound)
 
     def collide(self, vel_x, vel_y, entities, sound):
@@ -151,7 +153,7 @@ class PlayerRight(Player):
                     if vel_y < 0:
                         self.rect.top = e.rect.bottom
                         self.vel_y = 0
-                if isinstance(e, DeathBlock):
+                if isinstance(e, DeathBlock) and self.hitbox.colliderect(e):
                     self.death(entities)
                     sound[3].play()
                     pygame.time.wait(500)
