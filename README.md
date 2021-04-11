@@ -1,5 +1,5 @@
 # Shattered_Cyberdude
-A small platformer game created in python 3.7 using the pygame and pyganim  libraries special for MAGnUS Game Jam 2021. Theme: Two buttons.
+A small platformer game created in python 3.7 using the pygame and pyganim  libraries special for [MAGnUS Game Jam 2021](https://itch.io/jam/magnus-game-jam). Theme: Two buttons.
 
 Sounds taken from freesound.org
 
