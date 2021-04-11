@@ -23,6 +23,7 @@ class Block(pygame.sprite.Sprite):
         self.image.set_colorkey((60, 120, 120))
         self.image = pygame.image.load(resource_path('resources/textures/block.png'))
 
+
 class DeathBlock(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)

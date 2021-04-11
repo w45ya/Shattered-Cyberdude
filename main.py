@@ -102,7 +102,7 @@ class Game:
                 self.story.run_display = False
 
             if e.type == pygame.KEYDOWN:
-                if e.key == pygame.K_w or e.key == pygame.K_w \
+                if e.key == pygame.K_w or e.key == pygame.K_UP \
                         or e.key == pygame.K_s or e.key == pygame.K_DOWN \
                         or e.key == pygame.K_a or e.key == pygame.K_LEFT:
                     self.sound_wrong.play()

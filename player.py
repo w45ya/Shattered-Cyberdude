@@ -120,6 +120,7 @@ class PlayerRight(Player):
         self.image = pygame.image.load(resource_path('resources/textures/dude_right.png'))
         if up and self.on_ground_right:
             self.vel_y = self.jump_power
+            sound[0].play()
         if move:
             self.vel_x -= self.max_speed
         if not move:
