@@ -21,7 +21,7 @@ class Game:
         )
         # self.font_name = pygame.font.get_default_font()
         self.font = resource_path('resources/fonts/Pixeboy-z8XGD.ttf')
-        pygame.display.set_caption("Shattered Cyberdude")
+        pygame.display.set_caption("Shattered Cyberdude 1.0")
         self.clock = pygame.time.Clock()
         self.fps = 120
 
