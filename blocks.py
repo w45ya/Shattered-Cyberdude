@@ -46,7 +46,6 @@ class DeathBlock(pygame.sprite.Sprite):
     def update(self, g):
         self.animation.play()
         self.game = g
-        self.game.screen.blit(self.image, self.rect)
         self.animation.blit(self.image, (0, 0))
 
 
@@ -73,7 +72,6 @@ class TeleportIn(pygame.sprite.Sprite):
     def update(self, g):
         self.animation.play()
         self.game = g
-        self.game.screen.blit(self.image, self.rect)
         self.animation.blit(self.image, (0, 0))
 
 
@@ -100,7 +98,6 @@ class TeleportOut(pygame.sprite.Sprite):
     def update(self, g):
         self.animation.play()
         self.game = g
-        self.game.screen.blit(self.image, self.rect)
         self.animation.blit(self.image, (0, 0))
 
 

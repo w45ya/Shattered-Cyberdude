@@ -186,9 +186,10 @@ class Game:
             self.player_left.update(self.RightKey, self.JumpKey, self.entities, self.sound_player)
             self.player_right.update(self.RightKey, self.JumpKey, self.entities, self.sound_player)
             for e in self.entities:
+                self.screen.blit(e.image, self.camera.apply(e))
                 if isinstance(e, DeathBlock) or isinstance(e, TeleportIn) or isinstance(e, TeleportOut):
                     e.update(game)
-                self.screen.blit(e.image, self.camera.apply(e))
+                    self.screen.blit(e.image, self.camera.apply(e))
             for e in self.entities:
                 if isinstance(e, PlayerLeft) or isinstance(e, PlayerRight):
                     self.screen.blit(e.image, self.camera.apply(e))
