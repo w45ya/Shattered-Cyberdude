@@ -23,7 +23,6 @@ class Player(pygame.sprite.Sprite):
         self.hitbox = self.rect.inflate(-10, -10)
         self.hitbox.center = self.rect.center
 
-
     def death(self, entities):
         self.vel_x = 0
         self.vel_y = 0
@@ -43,6 +42,7 @@ class Player(pygame.sprite.Sprite):
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
+
 
 
 class PlayerLeft(Player):

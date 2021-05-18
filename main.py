@@ -12,6 +12,7 @@ class Game:
     def __init__(self):
         self.running = False
         self.playing = False
+        self.resume = False
         self.window_width = 1280
         self.window_height = 720
         self.screen_size = (self.window_width, self.window_height)
@@ -21,7 +22,8 @@ class Game:
         )
         # self.font_name = pygame.font.get_default_font()
         self.font = resource_path('resources/fonts/Pixeboy-z8XGD.ttf')
-        pygame.display.set_caption("Shattered Cyberdude 1.0")
+        pygame.display.set_caption("Shattered Cyberdude 1.1")
+        pygame.display.set_icon(pygame.image.load(resource_path("resources/icon/icon.ico")))
         self.clock = pygame.time.Clock()
         self.fps = 120
 
@@ -114,6 +116,11 @@ class Game:
                     self.JumpKey = True
                     if not self.playing:
                         self.sound_menu_press.play()
+                if e.key == pygame.K_ESCAPE:
+                    if self.playing:
+                        self.playing = False
+                        self.sound_menu_press.play()
+                        self.resume = True
 
             if e.type == pygame.KEYUP:
                 if e.key == pygame.K_d or e.key == pygame.K_RIGHT:
@@ -124,7 +131,6 @@ class Game:
     def reset_keys(self):
         self.JumpKey = False
         self.RightKey = False
-        self.WrongKey = False
 
     def draw_text(self, text, size, x, y, color):
         font = pygame.font.Font(self.font, size)
@@ -155,10 +161,12 @@ class Game:
             pygame.display.flip()
             pygame.time.wait(1000)
             self.playing = False
+            self.resume = False
 
     def loop(self):
-        self.lvl_n = 0
-        self.set_level(self.lvl_n)
+        if not self.resume:
+            self.lvl_n = 0
+            self.set_level(self.lvl_n)
         while self.playing:
             self.clock.tick(self.fps)
             self.delta = self.clock.get_time() / 1000
