@@ -22,7 +22,7 @@ class Game:
         )
         # self.font_name = pygame.font.get_default_font()
         self.font = resource_path('resources/fonts/Pixeboy-z8XGD.ttf')
-        pygame.display.set_caption("Shattered Cyberdude 1.1")
+        pygame.display.set_caption("Shattered Cyberdude 1.2")
         pygame.display.set_icon(pygame.image.load(resource_path("resources/icon/icon.ico")))
         self.clock = pygame.time.Clock()
         self.fps = 120
@@ -201,7 +201,8 @@ class Game:
             for e in self.entities:
                 if isinstance(e, PlayerLeft) or isinstance(e, PlayerRight):
                     self.screen.blit(e.image, self.camera.apply(e))
-            self.camera.update(self.player_left)
+            if self.level.lvl_camera_on[self.lvl_n]:
+                self.camera.update(self.player_left)
             pygame.display.flip()
 
 
